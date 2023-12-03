@@ -1,24 +1,41 @@
 package com.cyber.demo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.cyber.demo.payload.request.LoginReq;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @controller trả về html
  * @ResponseBody trả về string viết api
  * @restController kết hợp 2 thg trên
+ * form-data cho phép truyền file
+ * form urlencoded không file
+ * raw truyền đối tượng(dùng nhiều nhất)
  */
 
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
+    /**
+     * trình duyệt @RequestParam
+     * truyền ngầm
+     * đường dẫn @PathVariable
+     * đối tượng @ResquestBody
+     * @return
+     */
     @GetMapping("")
-    public String hello(){
-        return "hello quơ";
+    public String hello(@RequestParam String hoten,@RequestParam int tuoi){
+        return "hello quơ"+hoten+tuoi;
     }
-    @GetMapping("/cyber")
-    public String hellocyber(){
-        return "hello quơ cyber";
+    @PostMapping("/cyber")
+    public String hellocyber(@RequestBody LoginReq login){
+        return "hello quơ cyber" + login.getUsername();
+    }
+
+    //tra ve response entity
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> update(@PathVariable int id){
+        return new ResponseEntity<>("update"+id, HttpStatus.OK);
     }
 }
