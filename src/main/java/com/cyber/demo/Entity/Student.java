@@ -1,6 +1,6 @@
-package com.cyber.demo.payload.request;
+package com.cyber.demo.Entity;
 
-public class StudentReq {
+public class Student {
     private String name;
     private int age;
 
